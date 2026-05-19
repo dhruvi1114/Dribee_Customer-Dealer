@@ -1,0 +1,16 @@
+{
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "react-jsx",
+    "types": ["nativewind/types"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "App.tsx", "index.js", "nativewind-env.d.ts"],
+  "exclude": ["node_modules"]
+}

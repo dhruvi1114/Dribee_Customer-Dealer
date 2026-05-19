@@ -1,0 +1,93 @@
+# RN CLI Boilerplate — Cursor AI Rules
+
+> You are an expert React Native developer. Follow these rules for EVERY file you create or modify.
+
+## Your Expertise
+
+- React Native 0.76 with React Navigation v7
+- TypeScript strict mode with zero tolerance for `any`
+- NativeWind v4 (Tailwind CSS for React Native)
+- Redux Toolkit + React Query hybrid state management
+- Type-safe navigation with declared global param lists
+
+## Critical Rules
+
+1. **Path Alias**: Always `@/` for imports from `src/`. Never `../../` relative paths.
+2. **verbatimModuleSyntax**: Type-only imports MUST use `import type { X }`.
+3. **Named exports only** — except App.tsx which uses `export default`.
+4. **PUT not PATCH**: Backend expects PUT for all updates.
+5. **Toast on every mutation**: Success + error toasts required.
+6. **Zod schemas centralized**: ALL validation in `utils/validations/index.ts`.
+7. **useCallback required**: For handlers passed as props and FlatList renderItem.
+8. **Stable keys**: Never array index as `key` or `keyExtractor`. Use unique IDs.
+9. **Optional chaining `?.`**: Always use for nullable/API data.
+10. **Hooks before returns**: All hooks called before any conditional `return`.
+11. **Logger not console.log**: Use `logger` from `@/lib/logger`.
+12. **FlatList not ScrollView**: Never use ScrollView for dynamic lists.
+13. **SafeAreaView**: Always from `react-native-safe-area-context`.
+14. **react-native-fast-image**: Use FastImage, NOT Image from react-native.
+
+## Tech Stack
+
+- React Native 0.76 + TypeScript 5
+- React Navigation v7 (native stack + bottom tabs)
+- NativeWind v4 (Tailwind CSS for RN)
+- Redux Toolkit + redux-persist + MMKV
+- React Query v5 (mutations + cache)
+- React Hook Form + Zod
+- Axios + react-native-keychain (tokens)
+- Lucide React Native + @expo/vector-icons
+- react-native-reanimated + gesture-handler
+- react-native-toast-message
+- @gorhom/bottom-sheet
+- @react-native-firebase (messaging, analytics, crashlytics)
+- date-fns
+
+## Directory Structure
+
+```
+src/
+├── components/{ui,shared,layout}
+├── constants/
+├── hooks/
+├── lib/                    # cn(), logger, mmkv, keychain
+├── navigation/             # React Navigation setup
+├── providers/
+├── screens/{auth,app}
+├── services/{api,react-query}
+├── store/{slices}
+├── styles/
+├── types/
+└── utils/{constants,common-functions,validations}
+```
+
+## Navigation Pattern
+
+```typescript
+// Type-safe navigation
+import type { AuthScreenProps } from '@/navigation/types';
+type NavigationProp = AuthScreenProps<'Login'>['navigation'];
+const navigation = useNavigation<NavigationProp>();
+navigation.navigate('Register');
+```
+
+## Auth Guard (in AppNavigator.tsx)
+
+```typescript
+const isAuthenticated = useAppSelector((s) => s.auth.isAuthenticated);
+// Conditionally renders AuthStack or AppTabs
+```
+
+## Quality Checklist
+
+- [ ] TypeScript strict: no `any`, no unused vars/imports
+- [ ] All type-only imports use `import type`
+- [ ] `@/` path alias used for all imports
+- [ ] useCallback on handlers passed as props
+- [ ] FlatList (not ScrollView) for dynamic lists
+- [ ] Optional chaining on all nullable access
+- [ ] Toast notifications on all mutations
+- [ ] Zod schema in centralized validations file
+- [ ] SafeAreaView from react-native-safe-area-context
+- [ ] Hooks called before any early returns
+- [ ] Stable unique IDs for keys (not array index)
