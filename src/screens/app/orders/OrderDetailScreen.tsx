@@ -80,7 +80,11 @@ export function OrderDetailScreen() {
     : { show: false, disabled: true };
 
   const canCancel = order
-    ? canBuyerCancelOrder(order, { cancellationWindowHours: orderSettings?.cancellationWindowHours })
+    ? canBuyerCancelOrder(order, {
+        cancellationWindowDays: orderSettings?.cancellationWindowDays,
+        allowCancelPreDispatch: orderSettings?.allowCancelPreDispatch,
+        allowCancelPostDispatch: orderSettings?.allowCancelPostDispatch,
+      })
     : false;
 
   const handleReturn = useCallback(() => {

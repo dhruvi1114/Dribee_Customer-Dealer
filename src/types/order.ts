@@ -7,7 +7,9 @@ export type OrderStatus =
   | 'delivered'
   | 'cancelled'
   | 'return_requested'
-  | 'returned';
+  | 'returned'
+  | 'rto_initiated'
+  | 'rto_received';
 
 export type PaymentStatus = 'pending' | 'partial' | 'paid' | 'failed' | 'refunded';
 

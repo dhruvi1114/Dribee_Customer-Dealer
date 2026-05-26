@@ -28,10 +28,12 @@ const STATUS_FILTERS: Array<{ key: OrderFilterKey; label: string }> = [
 ];
 
 const ACTIVE_ORDER_STATUSES: ReadonlySet<OrderStatus> = new Set([
-  'placed',
-  'confirmed',
+  'pending_payment',
+  'payment_verified',
   'processing',
+  'pick_list_generated',
   'dispatched',
+  'rto_initiated',
 ]);
 
 export function OrdersScreen() {

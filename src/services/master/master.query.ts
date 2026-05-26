@@ -19,18 +19,22 @@ function mapOrderSettings(raw: unknown): OrderSettings | null {
   if (!raw || typeof raw !== 'object') return null;
   const r = raw as Record<string, unknown>;
   const rw = r.return_window_days ?? r.returnWindowDays;
-  const cw = r.cancellation_window_hours ?? r.cancellationWindowHours;
+  const cw = r.cancellation_window_days ?? r.cancellationWindowDays;
   const min = r.min_order_value ?? r.minOrderValue;
   const prefix = r.order_prefix ?? r.orderPrefix;
   const dc = r.delivery_charge_amount ?? r.deliveryChargeAmount;
   const fd = r.free_delivery_within_km ?? r.freeDeliveryWithinKm;
+  const preDispatch = r.allow_cancel_pre_dispatch ?? r.allowCancelPreDispatch;
+  const postDispatch = r.allow_cancel_post_dispatch ?? r.allowCancelPostDispatch;
   return {
     id: Number(r.id ?? 0),
     minOrderValue: min !== undefined && min !== null && min !== '' ? Number(min) : undefined,
     orderPrefix: typeof prefix === 'string' ? prefix : undefined,
     returnWindowDays: rw !== undefined && rw !== null && rw !== '' ? Number(rw) : undefined,
-    cancellationWindowHours:
+    cancellationWindowDays:
       cw !== undefined && cw !== null && cw !== '' ? Number(cw) : undefined,
+    allowCancelPreDispatch: typeof preDispatch === 'boolean' ? preDispatch : true,
+    allowCancelPostDispatch: typeof postDispatch === 'boolean' ? postDispatch : false,
     deliveryChargeAmount: dc !== undefined && dc !== null && dc !== '' ? Number(dc) : undefined,
     freeDeliveryWithinKm: fd !== undefined && fd !== null && fd !== '' ? Number(fd) : undefined,
   };

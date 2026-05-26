@@ -63,8 +63,12 @@ export interface OrderSettings {
   orderPrefix?: string;
   /** Admin-configured return window in days — same source as order detail `return_window_days`. */
   returnWindowDays?: number;
-  /** Hours after `placed_at` during which the buyer may cancel (`order_settings`). */
-  cancellationWindowHours?: number;
+  /** Days after `placed_at` during which the buyer may cancel (`order_settings`). */
+  cancellationWindowDays?: number;
+  /** Whether buyers can cancel before the order is dispatched. */
+  allowCancelPreDispatch?: boolean;
+  /** Whether buyers can cancel after the order is dispatched (or delivered). */
+  allowCancelPostDispatch?: boolean;
   /** Delivery charge applied when distance exceeds freeDeliveryWithinKm (₹). */
   deliveryChargeAmount?: number;
   /** Distance threshold below which delivery is free (km). */
