@@ -40,10 +40,9 @@ export function PartsApprovalScreen() {
     );
   }, [approvePartsMutation, booking, selectedIds, navigation]);
 
-  const subtotal = parts
+  const total = parts
     .filter((p) => selectedIds.includes(p.id))
     .reduce((s, p) => s + p.price * p.qty, 0);
-  const gst = Math.round(subtotal * 0.18);
 
   const styles = StyleSheet.create({
     safe: { flex: 1, backgroundColor: colors.bgApp },
@@ -78,11 +77,8 @@ export function PartsApprovalScreen() {
       gap: Spacing.sm,
     },
     summaryRow: { flexDirection: 'row', justifyContent: 'space-between' },
-    summaryLabel: { fontSize: Typography.fsBody, color: colors.textSecondary },
-    summaryValue: { fontSize: Typography.fsBody, color: colors.textPrimary },
     totalLabel: { fontSize: Typography.fsProduct, fontWeight: Typography.fwBold, color: colors.textPrimary },
     totalValue: { fontSize: Typography.fsSection, fontWeight: Typography.fwBold, color: colors.brandNavy },
-    divider: { height: 1, backgroundColor: colors.borderDivider },
     stickyBar: { padding: Spacing.lg, backgroundColor: colors.bgCard, borderTopWidth: 1, borderTopColor: colors.borderDivider },
   });
 
@@ -127,10 +123,7 @@ export function PartsApprovalScreen() {
         }}
         ListFooterComponent={
           <View style={styles.summaryCard}>
-            <View style={styles.summaryRow}><Text style={styles.summaryLabel}>Parts Subtotal</Text><Text style={styles.summaryValue}>₹{subtotal.toLocaleString('en-IN')}</Text></View>
-            <View style={styles.summaryRow}><Text style={styles.summaryLabel}>GST (18%)</Text><Text style={styles.summaryValue}>₹{gst.toLocaleString('en-IN')}</Text></View>
-            <View style={styles.divider} />
-            <View style={styles.summaryRow}><Text style={styles.totalLabel}>Total</Text><Text style={styles.totalValue}>₹{(subtotal + gst).toLocaleString('en-IN')}</Text></View>
+            <View style={styles.summaryRow}><Text style={styles.totalLabel}>Total (incl. GST)</Text><Text style={styles.totalValue}>₹{total.toLocaleString('en-IN')}</Text></View>
           </View>
         }
         contentContainerStyle={{ paddingBottom: 100 }}
